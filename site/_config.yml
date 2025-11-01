@@ -1,0 +1,19 @@
+title: louis
+author: Louis Baragwanath
+email: na@gmail.com
+url: https://louis.co.nz
+baseurl: ""
+description: >
+  A blog.
+
+theme_config:
+  appearance: "light"
+  back_home_text: "back"
+  date_format: "%Y-%m-%d"
+  show_description: false
+  lowercase_titles: true
+
+permalink: /:year/:month/:day/:title:output_ext
+
+plugins:
+  - jekyll-seo-tag

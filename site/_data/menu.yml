@@ -1,0 +1,14 @@
+entries:
+  - title: contact
+    entries:
+      - title: github
+        url: https://github.com/louisb0
+      - title: linkedin
+        url: https://www.linkedin.com/in/louis-baragwanath-123a05129/
+
+  - title: blog
+    post_list:
+      limit: 10
+      show_more: true
+      show_more_text: more...
+      show_more_url: archive.html
