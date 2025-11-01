@@ -15,5 +15,7 @@ theme_config:
 
 permalink: /:year/:month/:day/:title:output_ext
 
+destination: ../docs
+
 plugins:
   - jekyll-seo-tag
