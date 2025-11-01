@@ -1,8 +1,8 @@
 title: louis
 author: Louis Baragwanath
 email: na@gmail.com
-url: "https://louisb0.github.io"
-baseurl: "/louis.co.nz"
+url: "https://louis.co.nz"
+baseurl: ""
 description: >
   A blog.
 
@@ -12,10 +12,6 @@ theme_config:
   date_format: "%Y-%m-%d"
   show_description: false
   lowercase_titles: true
-
-permalink: /:year/:month/:day/:title:output_ext
-
-destination: ../docs
 
 plugins:
   - jekyll-seo-tag
