@@ -3,8 +3,7 @@ author: Louis Baragwanath
 email: na@gmail.com
 url: "https://louis.co.nz"
 baseurl: ""
-description: >
-  A blog.
+# description: >
 
 theme_config:
   appearance: "light"
@@ -15,3 +14,9 @@ theme_config:
 
 plugins:
   - jekyll-seo-tag
+
+exclude:
+  - .devenv
+  - devenv.nix
+  - devenv.yaml
+  - devenv.lock
