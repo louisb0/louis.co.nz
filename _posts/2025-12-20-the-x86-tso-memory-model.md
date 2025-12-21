@@ -143,9 +143,9 @@ be reordered with older stores. This means that for the below, it is
 possible to have **\[T0: eax = 0\] AND \[T1: ebx = 0\]** as a final
 state.
 
-    T0:             |  T1:
-    mov [x] <- 1    |  mov [y] <- 1
-    mov eax <- [y]  |  mov ebx <- [x]
+    T0:            | T1:
+    mov [x] <- 1   | mov [y] <- 1
+    mov eax <- [y] | mov ebx <- [x]
 
 This example rules out sequential consistency as the default - a common
 but misleading way of thinking about multicore execution.
@@ -154,11 +154,11 @@ You can visualise sequentially consistent execution as some interleaving
 of instructions, each with immediate memory visibility across cores. One
 interleaving might be:
 
-    T0:             |  T1:
-    mov [x] <- 1    |
-                    |  mov [y] <- 1
-    mov eax <- [y]  |
-                    |  mov ebx <- [x]
+    T0:            | T1:
+    mov [x] <- 1   |
+                   | mov [y] <- 1
+    mov eax <- [y] |
+                   | mov ebx <- [x]
 
 Now, if x86 were sequentially consistent, then for any possible
 interleaving of the above instructions:
@@ -176,10 +176,10 @@ To enforce sequential consistency, we can make use of the MFENCE or
 LOCK'd instructions. These directly flush the executing thread's store
 buffer, or require a flushing of its store buffer, respectively.
 
-    T0:             |  T1:
-    mov [x] <- 1    |  lock mov [y] <- 1
-    mfence          |  mov ebx <- [x]
-    mov eax <- [y]  |
+    T0:            | T1:
+    mov [x] <- 1   | lock mov [y] <- 1
+    mfence         | mov ebx <- [x]
+    mov eax <- [y] |
 
 > You could also use MFENCE on T1 with a LOCK on T0, or any other
 > combination. The example uses both to demonstrate their equivalence in
