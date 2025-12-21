@@ -18,7 +18,7 @@ Multiprocessors](https://www.cl.cam.ac.uk/~pes20/weakmemory/cacm.pdf)'.
 
 As esoteric a topic as it seems, the x86-TSO provides an extremely
 helpful way of reasoning about multithreaded / lock-free software. In
-fact, it follows from this framework that for x86, nearly all of C++'s
+fact, it follows from this framework that, for x86, nearly all of C++'s
 std::atomic memory orderings are the default. It becomes much easier to
 understand these higher-level portable memory models, designed to deal
 with weakly ordered architectures like ARM, when you frame them as a way
