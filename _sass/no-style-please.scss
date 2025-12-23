@@ -72,8 +72,11 @@ table, th, td {
 }
 
 code {
-  color: white;
-  background: black;
+  color: #1a1a1a;
+  background: #e0e0e0;
+  font-size: 0.9em;
+  padding: 0.15em 0.35em;
+  border-radius: 3px;
 }
 
 div.highlighter-rouge code {
@@ -81,6 +84,10 @@ div.highlighter-rouge code {
   overflow-x: auto;
   white-space: pre-wrap;
   padding: 1rem;
+  color: white;
+  background: black;
+  border-radius: 0;
+  font-size: inherit;
 }
 
 blockquote {

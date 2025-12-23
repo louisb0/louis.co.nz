@@ -19,7 +19,7 @@ Multiprocessors](https://www.cl.cam.ac.uk/~pes20/weakmemory/cacm.pdf)'.
 As esoteric a topic as it seems, the x86-TSO provides an extremely
 helpful way of reasoning about multithreaded / lock-free software. In
 fact, it follows from this framework that, for x86, nearly all of C++'s
-std::atomic memory orderings are the default. It becomes much easier to
+`std::atomic` memory orderings are the default. It becomes much easier to
 understand these higher-level portable memory models, designed to deal
 with weakly ordered architectures like ARM, when you frame them as a way
 of enforcing x86's strongly ordered semantics.
@@ -96,8 +96,8 @@ In this section, we'll reason about two examples provided by the paper,
 known as 'litmus tests'. I highly recommend reading the remainder of the
 examples from the original paper (section 3.3).
 
-In each of the below examples, consider **T0** and **T1** to be hardware
-threads with **x** and **y** as memory addresses, each holding the value
+In each of the below examples, consider `T0` and `T1` to be hardware
+threads with `x` and `y` as memory addresses, each holding the value
 0.
 
 ### 1: Store-Store Reordering
@@ -105,7 +105,7 @@ threads with **x** and **y** as memory addresses, each holding the value
 
 Under the x86-TSO, can stores be reordered relative to other stores? Put
 concretely, could any execution of the below program result in the final
-state **\[T1: eax = 1, ebx = 0\]**?
+state `[T1: eax = 1, ebx = 0]`?
 
     T0:           |  T1:
     mov [x] <- 1  |  mov eax <- [y]
@@ -114,23 +114,23 @@ state **\[T1: eax = 1, ebx = 0\]**?
 We know that no thread is blocked. So, using the events and their
 constraints:
 
--   \[Event 1\]: T0 will write to its store buffer **\[x\] \<- 1**
-    followed, in order, by **\[y\] \<- 1**.
--   \[Event 6\]: The memory subsystem will propagate the oldest write to
+-   [Event 1]: T0 will write to its store buffer `[x] <- 1`
+    followed, in order, by `[y] <- 1`.
+-   [Event 6]: The memory subsystem will propagate the oldest write to
     shared memory *twice*.
--   \[Event 2\]: T1 will read T0's stores **eax \<- \[y\]**, followed by
-    **ebx \<- \[x\]**, from shared memory (as T1 has no store buffer
+-   [Event 2]: T1 will read T0's stores `eax <- [y]`, followed by
+    `ebx <- [x]`, from shared memory (as T1 has no store buffer
     entries for these addresses).
 
 Together, this means the final state is impossible. If T1 finds that
-**eax = 1**, then it observed T0's write **\[y\] \<- 1**. Due to the
-FIFO ordered store buffer, it follows that T0's earlier write **\[x\]
-\<- 1** was also moved to shared memory. This means T1 will always
-observe T0's write **\[x\] \<- 1**, given it observed **\[y\] \<- 1**.
+`eax = 1`, then it observed T0's write `[y] <- 1`. Due to the
+FIFO ordered store buffer, it follows that T0's earlier write `[x]
+<- 1` was also moved to shared memory. This means T1 will always
+observe T0's write `[x] <- 1`, given it observed `[y] <- 1`.
 
 > This is the
-> [synchronises-with](https://en.cppreference.com/w/cpp/atomic/memory_order.html#Synchronizes_with)
-> relationship in C++. If T1 observes T0's store **\[y\] \<- 1**, then
+> [synchronises-with relationship](https://en.cppreference.com/w/cpp/atomic/memory_order.html#Synchronizes_with)
+> in C++. If T1 observes T0's store `[y] <- 1`, then
 > T1 must also have observed all of T0's earlier operations, meaning the
 > two are now 'synchronised'.
 
@@ -140,7 +140,7 @@ observe T0's write **\[x\] \<- 1**, given it observed **\[y\] \<- 1**.
 Given that a load from shared memory may be fulfilled before the
 subsystem propagates an earlier store, the x86-TSO allows for loads to
 be reordered with older stores. This means that for the below, it is
-possible to have **\[T0: eax = 0\] AND \[T1: ebx = 0\]** as a final
+possible to have `[T0: eax = 0] AND [T1: ebx = 0]` as a final
 state.
 
     T0:            | T1:
@@ -167,9 +167,9 @@ interleaving of the above instructions:
     visible.
 -   Between the threads, one of the two stores must execute first.
 
-Pairing these, T0's load **eax \<- \[y\]** must execute (with immediate
-visibility) after T1's store **\[y\] \<- 1**, or vice versa. This
-requires **\[T0: eax = 1\] OR \[T1: ebx = 1\]** as the final state,
+Pairing these, T0's load `eax <- [y]` must execute (with immediate
+visibility) after T1's store `[y] <- 1`, or vice versa. This
+requires `[T0: eax = 1] OR [T1: ebx = 1]` as the final state,
 but we just showed the exact opposite is possible under the x86-TSO.
 
 To enforce sequential consistency, we can make use of the MFENCE or
@@ -197,7 +197,7 @@ alongside the release of the lock. This enforces a sequentially
 consistent execution of that section between threads.
 
 The suggested change was to remove the LOCK prefix from the final
-**mov** in the release section of the below optimised code. The patch
+`mov` in the release section of the below optimised code. The patch
 was (incorrectly, in hindsight) [denied by Linus
 Torvalds](https://lkml.org/lkml/1999/11/21/58).
 
@@ -217,11 +217,11 @@ Torvalds](https://lkml.org/lkml/1999/11/21/58).
         mov [eax] <- 1      ; unlock (previously a LOCK'd mov instruction)
 
 To understand why it was denied, we need to briefly touch on how the
-spinlock works. **eax** points to a count, where 1 implies the spinlock
-is available, and 0 or less that it is acquired. The optimised spinlock
+spinlock works. `eax` points to a count, where 1 implies the spinlock
+is available, and 0 or less that it is acquiredd. The optimised spinlock
 works as follows:
 
-1.  **lock dec \[eax\]** will repeat until a count of 1 is read, each
+1.  `lock dec [eax]` will repeat until a count of 1 is read, each
     time:
     -   acquiring the global lock on the memory subsystem,
     -   performing a read-modify-write decrement,
@@ -241,7 +241,7 @@ However, at the time, this was not understood to be strictly true; Intel
 and AMD x86 manuals had poorly specified this behaviour. For that
 reason, the maintainers believed that a thread could observe a count of
 1 without the previous operations yet having propagated to shared
-memory. So, they required that the **mov** be LOCK'd to ensure that the
+memory. So, they required that the `mov` be LOCK'd to ensure that the
 entire store buffer was atomically flushed alongside the restoration of
 the count.
 
@@ -253,4 +253,4 @@ Higher-level languages require extremely complex memory ordering rules
 due to portability. Despite this, you can still develop an intuition for
 them by reasoning through a simpler memory model, such as the x86-TSO. I
 hope to build on top of this post in the future, extending these ideas
-to the C++ std::atomic memory orderings.
+to the C++ `std::atomic` memory orderings.
