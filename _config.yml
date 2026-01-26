@@ -3,6 +3,7 @@ description: Articles on systems programming.
 author: Louis Baragwanath
 url: https://louis.co.nz
 lang: en
+goat_counter: louisb0
 
 highlighter: rouge
 markdown: kramdown
