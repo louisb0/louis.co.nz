@@ -5,11 +5,6 @@ url: https://louis.co.nz
 lang: en
 goat_counter: louisb0
 
-highlighter: rouge
-markdown: kramdown
-kramdown:
-  syntax_highlighter: rouge
-
 theme_config:
   appearance: "light"
   back_home_text: "back"
@@ -19,6 +14,7 @@ theme_config:
 
 plugins:
   - jekyll-seo-tag
+  - jekyll-sitemap
 
 exclude:
   - .devenv
