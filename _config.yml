@@ -1,9 +1,13 @@
-title: louis
+title: louisb0
+description: Articles on systems programming.
 author: Louis Baragwanath
-email: na@gmail.com
-url: "https://louis.co.nz"
-baseurl: ""
-# description: >
+url: https://louis.co.nz
+lang: en
+
+highlighter: rouge
+markdown: kramdown
+kramdown:
+  syntax_highlighter: rouge
 
 theme_config:
   appearance: "light"

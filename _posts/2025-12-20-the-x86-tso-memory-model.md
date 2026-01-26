@@ -1,6 +1,9 @@
 ---
 layout: post
 title: The x86-TSO Memory Model
+author: Louis Baragwanath
+description: Reasoning about multicore memory visibility on x86.
+image: /assets/img/x86tso/abstract-machine.png
 ---
 
 Throughout the late 1990s and early 2000s, multicore processors slowly
@@ -30,7 +33,8 @@ The x86-TSO states that we can think about multithreaded execution with
 a simplified machine split into hardware threads and the **memory
 subsystem**, visualised within the dotted lines.
 
-![](/assets/img/x86-tso-abstract-machine.png){: style="margin: 1.5em
+{:.figure}
+![](/assets/img/x86tso/abstract-machine.png){: style="margin: 1.5em
 0;"}
 
 The interactions between a hardware thread and the memory subsystem can
