@@ -56,10 +56,10 @@ the same pattern:
 
 After compilation with `-fno-rtti -O3`, this is what we get:
 
-::: {style="display: flex; justify-content: center; gap: 1em; margin: 1.5em auto; flex-wrap: wrap;"}
-`<img src="/assets/img/vtable/overview.png" style="max-height: 300px; max-width: 320px;">`{=html}
-`<img src="/assets/img/vtable/invokation.png" style="max-height: 300px;">`{=html}
-:::
+<div style="display: flex; justify-content: center; gap: 1em; margin: 1.5em auto; flex-wrap: wrap;">
+  <img src="/assets/img/vtable/overview.png" style="max-height: 300px; max-width: 320px;">
+  <img src="/assets/img/vtable/invokation.png" style="max-height: 300px;">
+</div>
 
 The invocation loads the current `Animal*`, dereferences the first
 element of the derived class instance (its vtable pointer), then calls
