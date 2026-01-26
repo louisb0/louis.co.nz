@@ -85,8 +85,10 @@ few arguments exist for why this could sometimes be slow.
 To put it succinctly, only the third point is likely to matter in
 practice. The first two seem to apply only when dispatching to functions
 with trivially small or unrealistically port-saturating bodies, or when
-array elements are truly random. The former is solved by not using
-vtables; the latter, by sorting the array by type and batch processing.
+array elements are truly random. The former are rarely the target of virtual
+calls in practice, and may warrant a redesign if they are. The latter
+is rare, though a solution may be to sort the array by derived class type
+for batch processing.
 
 ## The Compiler
 
@@ -254,8 +256,8 @@ each jump as it's encountered, and the frontend uses those entries to
 decide what to decode next.
 
 Virtual calls don't add conditionals - they're unconditional jumps with
-several possible targets. It's the prediction of *which* target to fetch
-that causes mispredicts. To understand how that prediction works, it
+several possible targets. Predicting *which* target to fetch is the job
+of the Indirect Branch Predictor (IBP). To understand how it works, it
 helps to first look at taken/not-taken prediction for conditional
 branches. One method is a 2-bit saturating counter representing four
 states:
@@ -301,12 +303,11 @@ correlate with recent control flow.
 
 A virtual call is an *indirect jump*, like a switch statement or
 function pointer, with several possible targets depending on a value in
-a register or memory.
+a register or memory. As mentioned, this requires the IBP.
 
-The frontend assigns BTB entries for each target, but how does it choose
-between them? It works similarly to the two-level adaptive predictor:
-use global history to select which BTB entry to follow. This works
-because in practice, control flow correlates with data.
+The IBP works similarly to the two-level adaptive predictor, using
+global branch history to select from the set of predicted targets in the BTB. This works
+because in practice, control flow often correlates with data.
 
     Animal* a;
     if (some_condition) {
