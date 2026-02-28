@@ -2,7 +2,6 @@
 layout: post
 title: The x86-TSO Memory Model
 author: Louis Baragwanath
-description: Reasoning about multicore memory visibility on x86.
 image: /assets/img/x86tso/abstract-machine.png
 ---
 

@@ -1,14 +1,17 @@
 entries:
   - title: contact
     entries:
+      - title: contact@louis.co.nz
+        url: mailto:contact@louis.co.nz
+  - title: profiles
+    entries:
       - title: github
         url: https://github.com/louisb0
       - title: linkedin
-        url: https://www.linkedin.com/in/louis-baragwanath-123a05129/
-
+        url: https://www.linkedin.com/in/louis-baragwanath
   - title: blog
     post_list:
-      limit: 10
-      show_more: true
-      show_more_text: more...
-      show_more_url: archive.html
+      limit: 100
+      # show_more: true
+      # show_more_text: more...
+      # show_more_url: archive.html

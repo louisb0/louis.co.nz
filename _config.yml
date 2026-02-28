@@ -1,15 +1,17 @@
 title: louisb0
-description: Articles on systems programming.
-author: Louis Baragwanath
+description: A series of notes on systems programming.
 url: https://louis.co.nz
-lang: en
+
+author: Louis Baragwanath
+favicon: /assets/img/favicon.ico
 goat_counter: louisb0
+lang: en
 
 theme_config:
   appearance: "light"
   back_home_text: "back"
   date_format: "%Y-%m-%d"
-  show_description: false
+  show_description: true
   lowercase_titles: true
 
 plugins:
@@ -17,7 +19,12 @@ plugins:
   - jekyll-sitemap
 
 exclude:
+  - README.md
+  - CNAME
   - .devenv
   - devenv.nix
   - devenv.yaml
   - devenv.lock
+
+jekyll-seo-tag:
+  json_ld: false

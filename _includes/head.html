@@ -11,10 +11,28 @@
     {%- endif -%}
   </title>
 
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    "name": "Louis Baragwanath",
+    "url": "https://louis.co.nz",
+    "sameAs": [
+      "https://www.linkedin.com/in/louis-baragwanath",
+      "https://github.com/louisb0"
+    ],
+    "email": "contact@louis.co.nz",
+    "jobTitle": "Software Engineer",
+    "alumniOf": {
+      "@type": "CollegeOrUniversity",
+      "name": "The University of Auckland"
+    },
+    "knowsAbout": ["systems programming", "C++", "x86", "performance engineering"]
+  }
+  </script>
+
   {%-seo title=false-%}
 
   <link rel="shortcut icon" type="image/x-icon" href="{{ site.favicon | relative_url }}" />
   <link rel="stylesheet" href="{{ "/assets/css/main.css" | relative_url }}" />
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.css" integrity="sha384-OH8qNTHoMMVNVcKdKewlipV4SErXqccxxlg6HC9Cwjr5oZu2AdBej1TndeCirael" crossorigin="anonymous">
-
 </head>
