@@ -318,12 +318,12 @@ Here's the trace `[I] * e`, where `I = a > b + c * d`:
 
     (4)  d
 
-    (3)  itdration 1:
+    (3)  iteration 1:
          [*]
          / \
         c   d
 
-         itdration 2:
+         iteration 2:
          [*]
          / \
         *   e
