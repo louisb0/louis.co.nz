@@ -1,4 +1,4 @@
 ---
 layout: home
-title: louisb0
+title: Louis Baragwanath
 ---

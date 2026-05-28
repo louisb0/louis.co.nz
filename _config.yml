@@ -1,4 +1,4 @@
-title: louisb0
+title: louis
 description: A series of notes on systems programming.
 url: https://louis.co.nz
 
@@ -11,7 +11,6 @@ theme_config:
   appearance: "light"
   back_home_text: "back"
   date_format: "%Y-%m-%d"
-  show_description: true
   lowercase_titles: true
 
 plugins:
